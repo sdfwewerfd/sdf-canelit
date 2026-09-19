@@ -1,0 +1,479 @@
+/* --- CONFIGURACIÓN GENERAL Y RESET --- */
+body {
+    background-color: #fefae0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* --- FONDO CÁLIDO Y NUBES --- */
+.cielo-calido {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #fceade 0%, #f3d5c0 100%);
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 1;
+    pointer-events: none; /* 👈 AGREGA ESTA LÍNEA */
+}
+
+.cielo-calido.activo {
+    opacity: 1;
+}
+
+.marco-antiguo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 1.5px solid rgba(198, 139, 89, 0.4);
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.esquina {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%23c68b59' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M10 90 Q 20 40 50 50 T 90 10' /%3E%3Cpath d='M10 90 Q 50 80 50 50 T 10 10' /%3E%3Ccircle cx='50' cy='50' r='5' fill='%23c68b59' /%3E%3Ccircle cx='85' cy='15' r='4' fill='%23c68b59' /%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.65;
+}
+
+.topo-izquierda { top: -5px; left: -5px; }
+.topo-derecha { top: -5px; right: -5px; transform: scaleX(-1); }
+.abajo-izquierda { bottom: -5px; left: -5px; transform: scaleY(-1); }
+.abajo-derecha { bottom: -5px; right: -5px; transform: scale(-1); }
+
+.capa-nubes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.nube {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 50px;
+    filter: blur(10px);
+}
+
+.nube.n1 { width: 260px; height: 80px; top: 12%; left: -200px; animation: moverNube 26s linear infinite; }
+.nube.n2 { width: 320px; height: 100px; top: 40%; left: -280px; animation: moverNube 34s linear infinite 5s; }
+.nube.n3 { width: 200px; height: 70px; top: 68%; left: -200px; animation: moverNube 22s linear infinite 10s; }
+.nube.n4 { width: 350px; height: 110px; top: 80%; left: -320px; animation: moverNube 38s linear infinite 2s; }
+
+@keyframes moverNube {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(100vw + 400px)); }
+}
+
+.escena {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* --- SOBRE ELEGANTE --- */
+.contenedor-sobre {
+    position: absolute;
+    width: 320px;
+    height: 220px;
+    background-color: #dda15e;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    cursor: pointer; /* Muestra la manito al pasar el mouse */
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* 👈 SÚBELO A 100 PARA QUE ESTÉ ARRIBA DE TODO */
+    pointer-events: auto; /* Asegura que reciba los clics */
+}
+
+.contenedor-sobre:hover {
+    transform: translateY(-6px) scale(1.02);
+}
+
+@keyframes flotarSobre {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.instruccion {
+    position: absolute;
+    bottom: -45px;
+    width: 100%;
+    text-align: center;
+    color: #bc6c25;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    animation: pulsoTexto 2s infinite;
+}
+
+@keyframes pulsoTexto {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+.solapa {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 115px solid #ca8f53;
+    transform-origin: top;
+    transition: transform 0.5s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    z-index: 3;
+}
+
+.cuerpo-sobre {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid #de9f60;
+    border-right: 160px solid #de9f60;
+    border-bottom: 115px solid #c48344;
+    border-radius: 0 0 16px 16px;
+    z-index: 2;
+}
+
+.sello-centro {
+    position: absolute;
+    top: 105px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+}
+
+.contenedor-sobre:hover .sello-centro {
+    transform: translate(-50%, -50%) scale(1.15) rotate(5deg);
+}
+
+.img-sello {
+    width: 38px;
+    height: auto;
+    display: block;
+    image-rendering: pixelated;
+    filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.35));
+}
+
+/* --- CARTA PRINCIPAL --- */
+.carta-centrada {
+    position: relative;
+    width: 380px;
+    max-width: 90vw;
+    height: auto; /* Permite que la carta crezca con el contenido */
+    background: #fffdf9;
+    border-radius: 20px;
+    padding: 25px 20px 25px 20px; /* Espacio uniforme adentro */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    border: 2px dashed #dda15e;
+    opacity: 0;
+    transform: translateY(40px) scale(0.92);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+    overflow: visible;
+}
+
+.carta-centrada.mostrar {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    animation: flotarCarta 5s ease-in-out infinite 0.8s;
+}
+
+.carta-centrada.mostrar:hover {
+    transform: translateY(-4px) rotate(-0.5deg);
+    transition: transform 0.3s ease;
+}
+
+@keyframes flotarCarta {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-7px) rotate(0.8deg); }
+}
+
+.marco-animado-borde {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1.5px dashed #d4a373;
+    border-radius: 14px;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: transform 1s ease 0.4s, opacity 1s ease 0.4s;
+}
+
+.carta-centrada.mostrar .marco-animado-borde {
+    opacity: 0.8;
+    transform: scale(1);
+}
+
+/* --- GIRASOL ESQUINA --- */
+.girasol-sol-esquina {
+    position: absolute;
+    top: -42px;
+    right: -42px;
+    width: 135px;
+    height: 135px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.contenedor-latido {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carta-centrada.mostrar .contenedor-latido {
+    animation: latidoGirasol 4s ease-in-out infinite 2s;
+}
+
+@keyframes latidoGirasol {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.08) rotate(4deg); }
+}
+
+.centro-girasol-real {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 66px;
+    height: 66px;
+    margin-top: -33px;
+    margin-left: -33px;
+    border-radius: 50%;
+    background-image: url('girasol.prueba2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+    transform: scale(0);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s;
+}
+
+.carta-centrada.mostrar .centro-girasol-real {
+    transform: scale(1);
+}
+
+.petalo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 52px;
+    margin-left: -16px;
+    margin-top: -52px;
+    transform-origin: center 52px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+}
+
+.petalo-claro {
+    background-image: url('girasol.prueba3.png');
+    z-index: 3;
+}
+
+.petalo-oscuro {
+    background-image: url('girasol.prueba4.png');
+    z-index: 2;
+}
+
+.p1  { --deg: 0deg;   --d: 0.30s; }
+.p2  { --deg: 15deg;  --d: 0.35s; }
+.p3  { --deg: 30deg;  --d: 0.40s; }
+.p4  { --deg: 45deg;  --d: 0.45s; }
+.p5  { --deg: 60deg;  --d: 0.50s; }
+.p6  { --deg: 75deg;  --d: 0.55s; }
+.p7  { --deg: 90deg;  --d: 0.60s; }
+.p8  { --deg: 105deg; --d: 0.65s; }
+.p9  { --deg: 120deg; --d: 0.70s; }
+.p10 { --deg: 135deg; --d: 0.75s; }
+.p11 { --deg: 150deg; --d: 0.80s; }
+.p12 { --deg: 165deg; --d: 0.85s; }
+.p13 { --deg: 180deg; --d: 0.90s; }
+.p14 { --deg: 195deg; --d: 0.95s; }
+.p15 { --deg: 210deg; --d: 1.00s; }
+.p16 { --deg: 225deg; --d: 1.05s; }
+.p17 { --deg: 240deg; --d: 1.10s; }
+.p18 { --deg: 255deg; --d: 1.15s; }
+.p19 { --deg: 270deg; --d: 1.20s; }
+.p20 { --deg: 285deg; --d: 1.25s; }
+.p21 { --deg: 300deg; --d: 1.30s; }
+.p22 { --deg: 315deg; --d: 1.35s; }
+.p23 { --deg: 330deg; --d: 1.40s; }
+.p24 { --deg: 345deg; --d: 1.45s; }
+
+.carta-centrada.mostrar .petalo {
+    opacity: 1 !important;
+    transform: scale(1) rotate(var(--deg)) !important;
+    transition-delay: var(--d);
+}
+
+/* --- CONTENIDO --- */
+.contenido-nota {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.titulo-nota {
+    font-family: 'UnifrakturMaguntia', cursive, serif;
+    color: #8c420b;
+    font-size: 32px;
+    margin: 5px 0 15px 0;
+    letter-spacing: 1px;
+    font-weight: normal;
+    text-shadow: 0px 1px 2px rgba(188, 108, 37, 0.2);
+}
+
+.cuerpo-texto {
+    width: 90%;
+    margin: 0 auto 20px auto;
+}
+
+.cuerpo-texto p {
+    font-family: 'Caveat', cursive;
+    color: #3d332a;
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.marco-foto {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 10px; /* Margen para no chocar con el borde inferior */
+}
+
+.marco-foto img {
+    width: 50%;             /* Un tamaño balanceado */
+    max-height: 90px;       /* Evita que empuje el fondo */
+    object-fit: contain;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.12));
+}
+
+.carta-centrada:hover .marco-foto img {
+    transform: scale(1.02);
+}
+
+/* --- RECUADRO Y STICKER DE GHOST EN ESQUINA INFERIOR IZQUIERDA --- */
+.sticker-ghost {
+    position: absolute;
+    bottom: -15px; /* Un poco sobresalido por debajo de la carta */
+    left: -20px;   /* Sobresalido hacia la izquierda */
+    width: 95px;   /* Tamaño ajustado para que no tape el texto */
+    z-index: 12;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0) rotate(-10deg);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s, opacity 0.5s ease 1.2s;
+}
+
+.sticker-ghost img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.carta-centrada.mostrar .sticker-ghost {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.carta-centrada:hover .sticker-ghost {
+    transform: scale(1.08) rotate(-4deg) translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+/* --- ESTADOS Y TRANSICIONES DEL SOBRE --- */
+.contenedor-sobre.abrir-solapa .solapa {
+    transform: rotateX(180deg);
+}
+
+.contenedor-sobre.desaparecer {
+    transform: translateY(120px) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+}
+/* --- NOTA / FIRMA EN LA ESQUINA INFERIOR DERECHA --- */
+.texto-esquina-derecha {
+    position: absolute;
+    bottom: 12px;
+    right: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 1.15rem;
+    color: #bc6c25;
+    font-weight: 600;
+    line-height: 1.25;
+    pointer-events: none;
+}
+
+.texto-esquina-derecha .de-linea {
+    font-size: 1.05rem;
+    color: #dda15e;
+}
+
+.texto-esquina-derecha .para-linea {
+    font-size: 1.2rem;
+    color: #bc6c25;
+}
+
+/* Ajustes para pantallas pequeñas de celular */
+@media (max-width: 480px) {
+    .texto-esquina-derecha {
+        bottom: 10px;
+        right: 14px;
+    }
+    .texto-esquina-derecha .de-linea {
+        font-size: 0.95rem;
+    }
+    .texto-esquina-derecha .para-linea {
+        font-size: 1.05rem;
+    }
+}
