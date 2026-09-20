@@ -1,4 +1,4 @@
-/* --- CONFIGURACIÓN GENERAL Y RESET --- */
+
 body {
     background-color: #fefae0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -10,7 +10,7 @@ body {
     overflow: hidden;
 }
 
-/* --- FONDO CÁLIDO Y NUBES --- */
+
 .cielo-calido {
     position: fixed;
     top: 0;
@@ -21,7 +21,7 @@ body {
     opacity: 0;
     transition: opacity 1s ease;
     z-index: 1;
-    pointer-events: none; /* 👈 AGREGA ESTA LÍNEA */
+    pointer-events: none; 
 }
 
 .cielo-calido.activo {
@@ -89,7 +89,7 @@ body {
     z-index: 1;
 }
 
-/* --- SOBRE ELEGANTE --- */
+
 .contenedor-sobre {
     position: absolute;
     width: 320px;
@@ -102,8 +102,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100; /* 👈 SÚBELO A 100 PARA QUE ESTÉ ARRIBA DE TODO */
-    pointer-events: auto; /* Asegura que reciba los clics */
+    z-index: 100; 
+    pointer-events: auto; 
 }
 
 .contenedor-sobre:hover {
@@ -182,15 +182,15 @@ body {
     filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.35));
 }
 
-/* --- CARTA PRINCIPAL --- */
+
 .carta-centrada {
     position: relative;
     width: 380px;
     max-width: 90vw;
-    height: auto; /* Permite que la carta crezca con el contenido */
+    height: auto; 
     background: #fffdf9;
     border-radius: 20px;
-    padding: 25px 20px 25px 20px; /* Espacio uniforme adentro */
+    padding: 25px 20px 25px 20px; 
     box-shadow: 0 20px 40px rgba(0,0,0,0.12);
     border: 2px dashed #dda15e;
     opacity: 0;
@@ -236,7 +236,7 @@ body {
     transform: scale(1);
 }
 
-/* --- GIRASOL ESQUINA --- */
+
 .girasol-sol-esquina {
     position: absolute;
     top: -42px;
@@ -342,7 +342,7 @@ body {
     transition-delay: var(--d);
 }
 
-/* --- CONTENIDO --- */
+
 .contenido-nota {
     position: relative;
     z-index: 1;
@@ -382,12 +382,12 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 5px;
-    margin-bottom: 10px; /* Margen para no chocar con el borde inferior */
+    margin-bottom: 10px; 
 }
 
 .marco-foto img {
-    width: 50%;             /* Un tamaño balanceado */
-    max-height: 90px;       /* Evita que empuje el fondo */
+    width: 50%;             
+    max-height: 90px;       
     object-fit: contain;
     border-radius: 10px;
     display: block;
@@ -399,12 +399,12 @@ body {
     transform: scale(1.02);
 }
 
-/* --- RECUADRO Y STICKER DE GHOST EN ESQUINA INFERIOR IZQUIERDA --- */
+
 .sticker-ghost {
     position: absolute;
-    bottom: -15px; /* Un poco sobresalido por debajo de la carta */
-    left: -20px;   /* Sobresalido hacia la izquierda */
-    width: 95px;   /* Tamaño ajustado para que no tape el texto */
+    bottom: -15px; 
+    left: -20px;   
+    width: 95px;   
     z-index: 12;
     pointer-events: none;
     opacity: 0;
@@ -429,7 +429,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* --- ESTADOS Y TRANSICIONES DEL SOBRE --- */
+
 .contenedor-sobre.abrir-solapa .solapa {
     transform: rotateX(180deg);
 }
@@ -439,7 +439,7 @@ body {
     opacity: 0;
     pointer-events: none;
 }
-/* --- NOTA / FIRMA EN LA ESQUINA INFERIOR DERECHA --- */
+
 .texto-esquina-derecha {
     position: absolute;
     bottom: 12px;
@@ -464,7 +464,7 @@ body {
     color: #bc6c25;
 }
 
-/* Ajustes para pantallas pequeñas de celular */
+
 @media (max-width: 480px) {
     .texto-esquina-derecha {
         bottom: 10px;
